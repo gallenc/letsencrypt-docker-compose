@@ -80,18 +80,40 @@ services:
     restart: unless-stopped
 
   # Remove if you don't use PHP
-  php-fpm:
-    image: php:fpm-alpine
-    volumes:
-      - ./html:/var/www/html:ro
+#  php-fpm:
+#    image: php:fpm-alpine
+#    volumes:
+#      - ./html:/var/www/html:ro
 
   # Replace with your backend image or remove
-  example-backend:
-    build: ./examples/nodejs-backend
-    image: evgeniy-khyst/expressjs-helloworld
-    restart: unless-stopped
+#  example-backend:
+#    build: ./examples/nodejs-backend
+#    image: evgeniy-khyst/expressjs-helloworld
+#    restart: unless-stopped
+    # rest simulator app runs on http://localhost:8080/
+    # deployer runs on http://localhost:8080/cargo-jetty-deployer/
+
+  jetty-backend :
+    build: ./jetty
+    ports: 
+       - "8080:8080"
+    volumes:
+       # setting up log data storage (target is used in log4j2.xml)
+       - data-jetty-logs:/var/lib/jetty/target
+       # setting up data files storage
+       - data-jetty-files:/data-jetty-files
+       # setting up poperties for restsimulator app
+       - ./jetty/start.d/restsimulator.ini:/var/lib/jetty/start.d/restsimulator.ini
+          
+       # setting up security for cargo-deployer
+       - ./jetty/webapps/cargo-deployer/WEB-INF/web.xml:/var/lib/jetty/webapps/cargo-deployer/WEB-INF/web.xml
+       - ./jetty/webapps/cargo-deployer/WEB-INF/jetty-web.xml:/var/lib/jetty/webapps/cargo-deployer/WEB-INF/jetty-web.xml
+       - ./jetty/etc/realm.properties:/usr/local/jetty/etc/realm.properties
 
 volumes:
+  data-jetty-files: {}
+  data-jetty-logs: {}
+
   nginx_conf_ssl:
   letsencrypt_certs:
   certbot_acme_challenge:
