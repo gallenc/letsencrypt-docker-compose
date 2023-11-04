@@ -93,6 +93,7 @@ services:
     # rest simulator app runs on http://localhost:8080/
     # deployer runs on http://localhost:8080/cargo-jetty-deployer/
 
+# this is the jetty deployer
   jetty-backend :
     build: ./jetty
     ports: 
