@@ -1,5 +1,30 @@
 # updated for COM619 examples
 
+```
+[root@openoss1 letsencrypt-docker-compose]# sh cli.sh config
+Reading config ./config.json
+Found an existing config
+? What's your domain name (e.g. example.com)? openoss1.uksouth.cloudapp.azure.com
+? What's your email for registration and recovery contact? cg02r@zepler.net
+? Want to have 'www' subdomain (e.g. www.example.com)? No
+? Want to obtain a test certificate from a staging server? Yes
+? What is the RSA key size in bits? 4096
+? How do you want to configure Nginx? Reverse proxy
+? Does the upstream server run as a Docker container on the same host? Yes
+? What is the address of the proxied server (e.g. example-backend:8080)? jetty-backend:8080
+? Enable WebSocket proxying? No
+? Want to add another domain? No
+? What is the DH parameters size in bits? 2048
+? Use Gzip? No
+? Are the entered data correct? Yes
+Writing config ./config.json
+Compiling template ./templates/nginx.conf.hbs
+Compiling template ./templates/servers.conf.hbs
+Writing ./nginx-conf/nginx.conf
+Writing ./nginx-conf/conf.d/openoss1.uksouth.cloudapp.azure.com.conf
+
+```
+
 # <a id="0"></a>letsencrypt-docker-compose
 
 > **The project has been discontinued.**
