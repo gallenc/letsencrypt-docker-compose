@@ -19,10 +19,29 @@
       <!-- cargo -->
       <cargo.plugin.version>1.10.9</cargo.plugin.version>
 
+      <!-- use properties file or uncomment here. Note override setting doesn't work in properties-maven-plugin -->
+      <!-- <remote.cargo.hostname>127.0.0.1</remote.cargo.hostname> -->
+      <!-- <remote.cargo.servlet.port>8080</remote.cargo.servlet.port> -->
+      <!-- <remote.cargo.protocol>http</remote.cargo.protocol> -->
+      <!-- <remote.cargo.remote.username>someusername</remote.cargo.remote.username> -->
+      <!-- <remote.cargo.remote.password>somepassword</remote.cargo.remote.password> -->
+
    </properties>
 
    <build>
       <plugins>
+      
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.3.2</version>
+         </plugin>
+
+         <plugin>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-maven-plugin</artifactId>
+            <version>9.2.11.v20150529</version>
+         </plugin>
 
          <!-- see https://www.mojohaus.org/properties-maven-plugin/ -->
          <!-- note useDefaultValues default values doesn't work as expected so not used -->
@@ -39,7 +58,7 @@
                   <configuration>
                      <quiet>false</quiet>
                      <files>
-                        <!--  copy and modify deploy.properties.template to deploy.properties -->
+                        <!-- copy and modify deploy.properties.template to deploy.properties -->
                         <file>./deploy.properties</file>
                      </files>
                   </configuration>
@@ -47,19 +66,8 @@
             </executions>
          </plugin>
 
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>3.3.2</version>
-         </plugin>
 
-         <plugin>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-maven-plugin</artifactId>
-            <version>9.2.11.v20150529</version>
-         </plugin>
-
-         <!-- to read properties must use mvn initialize cargo:deploy -->
+         <!-- to read properties file you must use mvn initialize cargo:deploy -->
          <plugin>
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven3-plugin</artifactId>
@@ -73,7 +81,7 @@
                <configuration>
                   <type>runtime</type>
                   <properties>
-                     <!-- properties loaded from external properties file or use default here -->
+                     <!-- properties loaded from external properties file or uncomment properties above -->
                      <cargo.hostname>${remote.cargo.hostname}</cargo.hostname>
                      <cargo.servlet.port>${remote.cargo.servlet.port}</cargo.servlet.port>
                      <cargo.protocol>${remote.cargo.protocol}</cargo.protocol>
