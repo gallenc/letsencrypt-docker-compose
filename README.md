@@ -25,6 +25,12 @@ Writing ./nginx-conf/conf.d/openoss1.uksouth.cloudapp.azure.com.conf
 
 ```
 
+note need to address
+```
+HTTP request failed, response code: 413, response message: Request Entity Too Large,
+client_max_body_size 100M;
+```
+
 # <a id="0"></a>letsencrypt-docker-compose
 
 > **The project has been discontinued.**

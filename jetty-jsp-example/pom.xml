@@ -20,11 +20,11 @@
       <cargo.plugin.version>1.10.9</cargo.plugin.version>
 
       <!-- may be overridden by properties file -->
-      <remote.cargo.hostname>127.0.0.1</remote.cargo.hostname>
-      <remote.cargo.servlet.port>8080</remote.cargo.servlet.port>
-      <remote.cargo.protocol>http</remote.cargo.protocol>
-      <remote.cargo.remote.username>someusername</remote.cargo.remote.username>
-      <remote.cargo.remote.password>somepassword</remote.cargo.remote.password>
+<!--       <remote.cargo.hostname>127.0.0.1</remote.cargo.hostname> -->
+<!--       <remote.cargo.servlet.port>8080</remote.cargo.servlet.port> -->
+<!--       <remote.cargo.protocol>http</remote.cargo.protocol> -->
+<!--       <remote.cargo.remote.username>someusername</remote.cargo.remote.username> -->
+<!--       <remote.cargo.remote.password>somepassword</remote.cargo.remote.password> -->
    </properties>
 
    <build>

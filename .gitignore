@@ -3,4 +3,5 @@ html/
 nginx-conf/
 !nginx-conf/conf.d/upstreams.conf
 !nginx-conf/conf.d/includes/
+!nginx-conf/conf.d/maxfilesize.conf
 /.project
