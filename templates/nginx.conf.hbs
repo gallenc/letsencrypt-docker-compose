@@ -37,4 +37,8 @@ http {
     }
 
     include /etc/nginx/conf.d/*.conf;
+    
+    # increases max body size that can be uploaded
+    client_max_body_size 100M;
+
 }
