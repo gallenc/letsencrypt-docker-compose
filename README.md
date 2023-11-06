@@ -36,9 +36,13 @@ client_max_body_size 100M;
 When your server re-starts, you presently have to manually re-start the docker compose applications. 
 This is not desirable in production. 
 Instead, we create a simple systemd script to start up docker-compose when the system starts. 
+
+(for more info on systemd see a simple systemd service tutorial here [creating a linux service with systemd](https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6))
+
 The example is based on the simple example here: [docker compose with systemd](https://blog.entek.org.uk/notes/2021/09/30/docker-compose-with-systemd.html)
 
 This systemd file goes in /etc/systemd/system/docker-compose@.service:
+
 ```
 [Unit]
 Description=%i service with docker compose
@@ -49,22 +53,51 @@ After=docker.service
 Type=oneshot
 RemainAfterExit=true
 WorkingDirectory=/opt/%i
-ExecStart=/usr/bin/docker-compose up -d --remove-orphans
-ExecStop=/usr/bin/docker-compose down
+ExecStart=/usr/bin/docker compose up -d --remove-orphans
+ExecStop=/usr/bin/docker compose down
 
 [Install]
 WantedBy=multi-user.target
 ```
 
+change permissions 
+
+```
+chmod 764 docker-compose@.service
+```
+
 To configure the application (e.g. my-app), with a docker-compose.yml in the corresponding directory (e.g. /opt/my-app/docker-compose.yml), to start on boot, we simply enable a systemd unit for this template:
+
 ```
 systemctl enable docker-compose@my-app
 ```
+
 And to start it:
+
 ```
 systemctl start docker-compose@my-app
 ```
 This same mechanism can be used for multiple docker-compose apps in the /opt/ directory.
+
+For this to work, you should check out this repository as root in /opt
+
+```
+cd /opt
+git clone https://github.com/gallenc/letsencrypt-docker-compose.git
+
+cp letsencrypt-docker-compose/docker-compose@.service /etc/systemd/system/
+chmod 764/etc/systemd/system/docker-compose@.service
+
+## starts when os starts
+systemctl enable docker-compose@letsencrypt-docker-compose
+
+# start now
+systemctl start docker-compose@letsencrypt-docker-compose
+
+# stop now
+systemctl stop docker-compose@letsencrypt-docker-compose
+```
+
 
 
 # <a id="0"></a>letsencrypt-docker-compose
