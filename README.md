@@ -79,6 +79,7 @@ systemctl start docker-compose@my-app
 ```
 This same mechanism can be used for multiple docker-compose apps in the /opt/ directory.
 
+## installing script for this example 
 For this to work, you should check out this repository as root in /opt
 
 ```
