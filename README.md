@@ -13,10 +13,44 @@ client_max_body_size 100M;
 ```
 
 ### jetty cargo installer and simple jetty service
-Configuration has been added to allow jetty to work as a container. 
-This is the same docker-compose definition as was used in previous examples
 
-A simple jsp application is also included which you can deploy to the remote server.
+Configuration has been added to allow jetty to work as a container. 
+This is the same docker-compose definition as was used in previous examples and creates a container service called `jetty-backend`
+
+Note that the nginx server definition depends on the jetty-backend service. 
+A simple test is used to check that the jetty server is working by looking for a 302 found response from `http://localhost:8080/cargo-jetty-deployer`.
+
+```
+curl --fail -I http://localhost:8080/cargo-jetty-deployer
+HTTP/1.1 302 Found
+Location: http://localhost:8080/cargo-jetty-deployer/
+Content-Length: 0
+Server: Jetty(10.0.17)
+
+```
+The relevant sections of docker-compose.yml are
+
+```
+ nginx:
+    ...
+    depends_on:
+      jetty-backend:
+         condition: service_healthy
+
+ jetty-backend :
+    ...
+    healthcheck:
+       test: [ "CMD", "curl", "-f", "-I", "http://localhost:8080/cargo-jetty-deployer" ]
+       interval: 1m
+       timeout: 5s
+       retries: 3
+    
+```
+
+A simple jsp application jetty-jsp-example is also included which you can deploy to the remote server.
+
+To do this you must copy the `deploy.properties.template` file to ``deploy.properties` and set the values accordingly.
+Then use  `mvn cargo:deploy`.
 
 ### installation
 This has been tested running on a Rocky 9 server on Azure.
