@@ -116,7 +116,7 @@ services:
        - ./jetty/webapps/cargo-deployer/WEB-INF/jetty-web.xml:/var/lib/jetty/webapps/cargo-deployer/WEB-INF/jetty-web.xml
        - ./jetty/etc/realm.properties:/usr/local/jetty/etc/realm.properties
     healthcheck:
-       test: [ "CMD", "curl", "-f", "-I", "http://localhost:8080/" ]
+       test: [ "CMD", "curl", "-f", "-I", "http://localhost:8080/cargo-jetty-deployer" ]
        interval: 1m
        timeout: 5s
        retries: 3
