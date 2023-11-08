@@ -98,7 +98,7 @@ Instead, we create a simple systemd script to start up docker-compose when the s
 
 The example is based on the simple example here: [docker compose with systemd](https://blog.entek.org.uk/notes/2021/09/30/docker-compose-with-systemd.html)
 
-This systemd file goes in /etc/systemd/system/docker-compose@.service:
+This systemd file `docker-compose@.service` goes in `/etc/systemd/system/docker-compose@.service`
 
 ```
 [Unit]
