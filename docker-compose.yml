@@ -40,6 +40,11 @@ services:
       start_period: 30s
       retries: 10
     restart: unless-stopped
+    # nginx needs the upstream service to be working 
+    depends_on:
+      jetty-backend:
+         condition: service_healthy
+    
 
   certbot:
     build: ./certbot
@@ -110,6 +115,11 @@ services:
        - ./jetty/webapps/cargo-deployer/WEB-INF/web.xml:/var/lib/jetty/webapps/cargo-deployer/WEB-INF/web.xml
        - ./jetty/webapps/cargo-deployer/WEB-INF/jetty-web.xml:/var/lib/jetty/webapps/cargo-deployer/WEB-INF/jetty-web.xml
        - ./jetty/etc/realm.properties:/usr/local/jetty/etc/realm.properties
+    healthcheck:
+       test: [ "CMD", "curl", "-f", "-I", "http://localhost:8080/" ]
+       interval: 1m
+       timeout: 5s
+       retries: 3
 
 volumes:
   data-jetty-files: {}

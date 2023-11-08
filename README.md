@@ -21,10 +21,11 @@ A simple jsp application is also included which you can deploy to the remote ser
 ### installation
 This has been tested running on a Rocky 9 server on Azure.
 
-as a root user check out the repository to `/opt/` and switch branches to COM619-1
+As a root user check out the repository to `/opt/` and switch branches to COM619-1.
+You can then configure the certificates by basically following the original instructions listed below.
+However when running the `sh cli.sh config` script, you must point the reverse proxy to your service or (as in my example) the jetty service listed in docker-compose i.e. `jetty-backend:8080`.
 
-
-To configure this module, you should basicallt follow the original instructions listed below but point the reverse proxy to your service or to the jetty service `jetty-backend:8080`.
+Remember that before you run this script in azure, you will also need to change the firewall rules to open ports 80 and port 443 so htat letsencrytpt can check your site with a challenge.
 
 I have used the following configuration for my service. 
 
