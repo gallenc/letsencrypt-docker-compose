@@ -154,7 +154,11 @@ systemctl start docker-compose@letsencrypt-docker-compose
 
 # stop now
 systemctl stop docker-compose@letsencrypt-docker-compose
+
+# status
+systemctl status docker-compose@letsencrypt-docker-compose
 ```
+Note that the service will take about a minute to come up.
 
 # <a id="0"></a> ORIGINAL INSTRUCTIONS letsencrypt-docker-compose
 
