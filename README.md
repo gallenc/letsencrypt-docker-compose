@@ -1,6 +1,6 @@
 # letsencrypt-docker-compose
 This repository is forked from the original at [eugene-khyst/letsencrypt-docker-compose](https://github.com/eugene-khyst/letsencrypt-docker-compose)
-The code has been modified to work with the example code in com619-devops1. (https://github.com/gallenc/com619-devops1)
+The code has been modified to work with the example code in [com619-devops1](https://github.com/gallenc/com619-devops1).
 
 ## updated for COM619 examples
 The following changes have been made to the original letsencrypt-docker-compose code
