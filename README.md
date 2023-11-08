@@ -1,4 +1,32 @@
-# updated for COM619 examples
+# letsencrypt-docker-compose
+This repository is forked from the original at [eugene-khyst/letsencrypt-docker-compose](https://github.com/eugene-khyst/letsencrypt-docker-compose)
+The code has been modified to work with the example code in COM619.
+
+## updated for COM619 examples
+The following changes have been made to the original code
+
+### large updates
+In the servers.conf.hbs template, the following line has been added to allow large uploads through nginx
+```
+HTTP request failed, response code: 413, response message: Request Entity Too Large,
+client_max_body_size 100M;
+```
+
+### jetty cargo installer and simple jetty service
+Configuration has been added to allow jetty to work as a container. 
+This is the same docker-compose definition as was used in previous examples
+
+A simple jsp application is also included which you can deploy to the remote server.
+
+### installation
+This has been tested running on a Rocky 9 server on Azure.
+
+as a root user check out the repository to `/opt/` and switch branches to COM619-1
+
+
+To configure this module, you should basicallt follow the original instructions listed below but point the reverse proxy to your service or to the jetty service `jetty-backend:8080`.
+
+I have used the following configuration for my service. 
 
 ```
 [root@openoss1 letsencrypt-docker-compose]# sh cli.sh config
@@ -25,13 +53,7 @@ Writing ./nginx-conf/conf.d/openoss1.uksouth.cloudapp.azure.com.conf
 
 ```
 
-note need to address
-```
-HTTP request failed, response code: 413, response message: Request Entity Too Large,
-client_max_body_size 100M;
-```
-
-## starting docker-compose as a service
+### starting docker-compose as a service
 
 When your server re-starts, you presently have to manually re-start the docker compose applications. 
 This is not desirable in production. 
@@ -77,7 +99,7 @@ And to start it:
 ```
 systemctl start docker-compose@my-app
 ```
-This same mechanism can be used for multiple docker-compose apps in the /opt/ directory.
+This same mechanism can be used for multiple docker-compose apps in placed the /opt/ directory.
 
 ## installing script for this example 
 For this to work, you should check out this repository as root in /opt
@@ -99,9 +121,7 @@ systemctl start docker-compose@letsencrypt-docker-compose
 systemctl stop docker-compose@letsencrypt-docker-compose
 ```
 
-
-
-# <a id="0"></a>letsencrypt-docker-compose
+# <a id="0"></a> ORIGINAL INSTRUCTIONS letsencrypt-docker-compose
 
 > **The project has been discontinued.**
 > **Use [linuxserver/docker-swag](https://github.com/linuxserver/docker-swag) instead.**
